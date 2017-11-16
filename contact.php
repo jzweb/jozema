@@ -3,6 +3,7 @@
 $nameErr = $emailErr   = "";
 $name = $email  = $comment ="";
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["nombre"])) {
@@ -31,17 +32,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
   
   if (empty($_POST["mensaje"])) {
-    $comment = "";
-  } else {
+    $comment = ""; 
+  }else {
     $comment = test_input($_POST["mensaje"])."\r\n".$name;
   }
 
-$para= 'jzevallosmv@outlook.com';
-$titulo= 'Mensaje desde JZWebDesigner Website';
-$cabeceras = 'From:'.$email."\r\n".
-    'Reply-To: jzevallosmv@outlook.com '."\r\n".
-    'X-Mailer: PHP/' . phpversion();
-  
+  if(preg_match("/^[a-zA-Z ]*$/",$name)&&filter_var($email, FILTER_VALIDATE_EMAIL)&&!empty($_POST["mensaje"])){
+	mail($para, $titulo, $comment, $cabeceras);
+	$mesaje="Enviado! a  \r\n".$email;
+   }
 }
 
 
@@ -52,8 +51,8 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-if(preg_match("/^[a-zA-Z ]*$/",$name)&&filter_var($email, FILTER_VALIDATE_EMAIL)&&!empty($_POST["mensaje"])){
-mail($para, $titulo, $comment, $cabeceras);}
+
+
 ?> 
 
 <html>
@@ -107,12 +106,12 @@ mail($para, $titulo, $comment, $cabeceras);}
 	<div class="box-wrappe">
 		<div class="div-cont">
 			<form id="contact-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-			<label></label><br>
+			<label><?php echo $mesaje;?></label><br>
 			<span class="error"> <?php echo $nameErr;?></span><br>
-			<input type="text" name="nombre" value="your name" class="texto" ><br>
+			<input type="text" name="nombre" placeholder="your name" class="texto" ><br>
 			 <span class="error"> <?php echo $emailErr;?></span><br>
-			<input type="text" name="correo" value="your email"  class="texto"><br>
-			<input type="tel" name="telefono" value="your telephone"  class="texto"><br>
+			<input type="text" name="correo" placeholder="your email"  class="texto"><br>
+			<input type="tel" name="telefono" placeholder="your telephone"  class="texto"><br>
 			<select name="tema" id="" class="list-box">
 				<option value="Web Design">Web Design</option>
 				<option value="Web develop">Web develop</option>

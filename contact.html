@@ -1,60 +1,23 @@
 <?php
-// define variables and set to empty values
-$nameErr = $emailErr   = "";
-$name = $email  = $comment ="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$to      = 'jorgeluis.zevallosqgmail.com';
+	$subject = 'From website JZWebDesigner';
+	$message =  $_POST["mensaje"];
+	$headers = $_POST["correo"] . "\r\n" .
+	    'Reply-To:'.$_POST["correo"]  . "\r\n" .
+	    'X-Mailer: PHP/' . phpversion();
 
-  if (empty($_POST["nombre"])) {
-    $nameErr = "Name is required";
-  } else {
-    $name = test_input($_POST["nombre"]);
-    // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-      $nameErr = "Only letters and white space allowed";
-      ?> <script type="text/javascript">
-        document.getElementByname('name').css="border:1px solid red";
+mail($to, $subject, $message, $headers);
 
-      </script><?php
-    }
-  }
-  
-  if (empty($_POST["correo"])) {
-    $emailErr = "Email is required";
-  } else {
-    $email = test_input($_POST["correo"]);
-    // check if e-mail address is well-formed
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailErr = "Invalid email format";
-    }
-  }
-    
-  
-  if (empty($_POST["mensaje"])) {
-    $comment = "";
-  } else {
-    $comment = test_input($_POST["mensaje"])."\r\n".$name;
-  }
-
-$para= 'jzevallosmv@outlook.com';
-$titulo= 'Mensaje desde JZWebDesigner Website';
-$cabeceras = 'From:'.$email."\r\n".
-    'Reply-To: zevallosmv@outlook.com '."\r\n".
-    'X-Mailer: PHP/' . phpversion();
-  
+}else{
+   $emailMesaje="No se envio!";
 }
 
-
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-if(preg_match("/^[a-zA-Z ]*$/",$name)&&filter_var($email, FILTER_VALIDATE_EMAIL)&&!empty($_POST["comment"])){
-mail($para, $titulo, $comment, $cabeceras);}
 ?> 
+
+
+
 
 <html>
 
@@ -106,13 +69,13 @@ mail($para, $titulo, $comment, $cabeceras);}
 	</div>
 	<div class="box-wrappe">
 		<div class="div-cont">
-			<form id="contact-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-			<label></label><br>
+			<form id="contact-form" method="post" action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>' >
+		
 			<span class="error"> <?php echo $nameErr;?></span><br>
-			<input type="text" name="nombre" value="your name" class="texto" ><br>
-			 <span class="error"> <?php echo $emailErr;?></span><br>
-			<input type="text" name="correo" value="your email"  class="texto"><br>
-			<input type="tel" name="telefono" value="your telephone"  class="texto"><br>
+			<span class="error"> <?php echo $emailMesaje;?></span><br>
+			<input type="text" name="nombre" placeholder="your name" class="texto"><br>
+			<input type="text" name="correo" placeholder="your email"  class="texto"><br>
+			<input type="tel" name="telefono" placeholder="your telephone"  class="texto"><br>
 			<select name="tema" id="" class="list-box">
 				<option value="Web Design">Web Design</option>
 				<option value="Web develop">Web develop</option>
