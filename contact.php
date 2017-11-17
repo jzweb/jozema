@@ -67,8 +67,20 @@ function test_input($data) {
 
 </head>
 <body>
+	<div id="cuerpo-top">
+	
+		<div class="menu">
+
+			<h1>JZ WebDesigner</h1><br><br>
+			<label><a href="index.html"><img class="icono" src="iconos/home.png">Home</a></label><br><br>
+			<label><a href="profile.html"><img class="icono" src="iconos/perfil.png">Profile</a></label><br><br>
+			<label><a href=""><img class="icono" src="iconos/mail.png">Contact</a></label><br><br><br><br>
+			<img src="iconos/close.png" id="close">
+		</div>
+	
+	</div>
 <div class="header">
-	<div class="logo">JZ WebDesigner</div>
+	<div class="logo"><img src="iconos/menu-icon.png" id="menu-icono">JZ WebDesigner</div>
 	<nav>
 		<ul>
 			<li><a href="index.html"><img class="icono" src="iconos/home.png">Home</a></li>

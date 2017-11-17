@@ -1,5 +1,13 @@
 $(document).ready(function(){
     
+    $("#menu-icono").click(function(){
+    	$('#cuerpo-top').css("display","block");
+    	alert();
+    });
+
+    $("#close").click(function(){
+    	$('#cuerpo-top').css("display","none");
+    });
 
 	//****** Efecto de fotos!
 	$("#pic1-1").hide();$("#pic2-1").hide();
